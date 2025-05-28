@@ -1,0 +1,42 @@
+需求：抓取5sing原创音乐网站上的整站数据，一共50页
+
+1.获取歌曲列表，提取歌曲的歌名，歌曲首页地址（歌曲id）
+    1.requests发送请求，获取页面html
+    2.解析html，获取歌名、歌曲id、首页地址
+
+2.根据歌曲id获取下载地址
+    1.requests发送请求，获取歌曲下载地址
+
+    地址：
+        https://5sservice.kugou.com/song/getsongurl
+
+    参数：
+        songid:4391110 （歌曲id）
+        clienttime:1748263553210 （时间戳）
+        signature:6c7b4513616a54667a3502ee4604c7d0 （未知生成方式）
+
+        签名生成规则：
+        o='5uytoxQewcvIc1gn1PlNF0T2jbbOzRl5'
+        res= o + 请求头参数（转化成字符串格式） + o
+        调用函数 g(res)
+
+    生成签名的参数：
+    '5uytoxQewcvIc1gn1PlNF0T2jbbOzRl5
+    appid=2918
+    clienttime=1748265766022
+    clientver=1000
+    dfid=3MmHmW2T95TW4Bee872lFvzq
+    mid=bc53a47723d79e7c47e989a19c1ffa5c
+    songid=4391110
+    songtype=yc
+    uuid=bc53a47723d79e7c47e989a19c1ffa5c
+    version=6.6.72
+    5uytoxQewcvIc1gn1PlNF0T2jbbOzRl5'
+
+3.下载歌曲保存
+    1.通过requests下载歌曲保存为文件
+
+50页、每页20首歌曲、每首歌2个请求= 50+2000
+
+技术点：
+    requests+xpath+js逆向+jsonpath+并发+ip池+cookie池
